@@ -27,3 +27,7 @@ jobs:
         run: pnpm -r publish --access public --tag alpha --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Sync npmmirror
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: curl -fsSL https://raw.githubusercontent.com/sns-parse/koishi-plugin-sns-parse/main/scripts/sync-mirrors.mjs -o sync-mirrors.mjs && node sync-mirrors.mjs 300 30
