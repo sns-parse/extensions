@@ -1,0 +1,40 @@
+{
+  "name": "@sns-parse/ext-merge",
+  "version": "0.1.0-alpha.1+upstream.1.6.7",
+  "description": "sns-parse 扩展：merge",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf lib",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@sns-parse/core": "^0.1.0",
+    "@sns-parse/ext-gif": "^0.1.0-alpha.1"
+  },
+  "optionalDependencies": {
+    "ffmpeg-static": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sns-parse/extensions.git",
+    "directory": "packages/ext-merge"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

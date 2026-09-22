@@ -1,47 +1,19 @@
 {
-  "name": "@sns-parse/extensions",
-  "version": "0.1.0",
-  "description": "sns-parse 扩展集合：NSFW 审核/图片混淆、同源切图合并、翻译、GIF 转换",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "files": [
-    "lib"
+  "name": "sns-parse-extensions-repo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "sns-parse 扩展 monorepo：@sns-parse/ext-nsfw / ext-merge / ext-translate / ext-gif",
+  "workspaces": [
+    "packages/*"
   ],
-  "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "clean": "rimraf lib",
-    "prepublishOnly": "npm run build"
+    "build": "npm run build --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present"
   },
-  "keywords": [
-    "sns-parse",
-    "video",
-    "parser",
-    "extensions",
-    "nsfw",
-    "moderation"
-  ],
-  "dependencies": {
-    "@sns-parse/core": "^0.1.0",
-    "axios": "^1.16.1"
-  },
-  "optionalDependencies": {
-    "ffmpeg-static": "^5.2.0"
-  },
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.11.0",
     "rimraf": "^5.0.5",
     "typescript": "^5.3.3"
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sns-parse/extensions.git"
-  },
-  "engines": {
-    "node": ">=16.0.0"
   }
 }

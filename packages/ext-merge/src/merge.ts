@@ -14,7 +14,7 @@ import { tmpdir } from 'os'
 import { join } from 'path'
 import type { ParserRuntimeLike } from '@sns-parse/core'
 import { probeImageSize, type ImageSize } from './image-size'
-import { resolveFfmpeg } from './gif'
+import { resolveFfmpeg } from '@sns-parse/ext-gif'
 import { debugLog, logger } from '@sns-parse/core'
 
 export type MergeLayout =
