@@ -1,0 +1,11 @@
+Scope: 5 of 6 workspace projects
+packages/ext-gif build$ tsc
+packages/ext-translate build$ tsc
+packages/ext-nsfw build$ tsc
+packages/ext-merge build$ tsc
+packages/ext-translate build: Done
+packages/extensions build$ tsc
+packages/ext-gif build: Done
+packages/ext-merge build: Done
+packages/ext-nsfw build: Done
+packages/extensions build: Done
