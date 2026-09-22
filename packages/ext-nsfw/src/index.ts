@@ -7,6 +7,7 @@ export * from './gate'
 export * from './scramble'
 export * from './vault'
 export * from './moderation'
+export { nsfwConfigContribution } from './config'
 
 /** 组装为 core 扩展片段 */
 export function nsfwExtension() {
