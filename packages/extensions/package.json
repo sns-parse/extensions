@@ -1,0 +1,39 @@
+{
+  "name": "@sns-parse/extensions",
+  "version": "0.1.0-alpha.1+upstream.1.6.7",
+  "description": "sns-parse 全部扩展的纯依赖聚合包（自动安装 ext-nsfw / ext-merge / ext-translate / ext-gif；不提供实现）",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf lib",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@sns-parse/ext-gif": "^0.1.0-alpha.1",
+    "@sns-parse/ext-merge": "^0.1.0-alpha.1",
+    "@sns-parse/ext-nsfw": "^0.1.0-alpha.1",
+    "@sns-parse/ext-translate": "^0.1.0-alpha.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sns-parse/extensions.git",
+    "directory": "packages/extensions"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
