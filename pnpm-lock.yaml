@@ -122,8 +122,8 @@ importers:
   packages/ext-gif:
     dependencies:
       '@sns-parse/core':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.4.0-alpha.1
+        version: 0.4.0-alpha.3(debug@4.4.3)
     devDependencies:
       '@types/node':
         specifier: ^20.11.0
@@ -142,11 +142,11 @@ importers:
   packages/ext-merge:
     dependencies:
       '@sns-parse/core':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.4.0-alpha.1
+        version: 0.4.0-alpha.3(debug@4.4.3)
       '@sns-parse/ext-gif':
-        specifier: ^0.1.0-alpha.1
-        version: 0.1.0-alpha.1
+        specifier: ^0.1.0-alpha.2
+        version: 0.1.0-alpha.2(debug@4.4.3)
     devDependencies:
       '@types/node':
         specifier: ^20.11.0
@@ -165,8 +165,8 @@ importers:
   packages/ext-nsfw:
     dependencies:
       '@sns-parse/core':
-        specifier: ^0.2.0-alpha.1
-        version: 0.2.0-alpha.1
+        specifier: ^0.4.0-alpha.1
+        version: 0.4.0-alpha.3(debug@4.4.3)
       axios:
         specifier: ^1.16.1
         version: 1.20.0(debug@4.4.3)
@@ -184,8 +184,8 @@ importers:
   packages/ext-translate:
     dependencies:
       '@sns-parse/core':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.4.0-alpha.1
+        version: 0.4.0-alpha.3(debug@4.4.3)
       axios:
         specifier: ^1.16.1
         version: 1.20.0(debug@4.4.3)
@@ -203,16 +203,16 @@ importers:
   packages/extensions:
     dependencies:
       '@sns-parse/ext-gif':
-        specifier: ^0.1.0-alpha.1
+        specifier: ^0.1.0-alpha.2
         version: 0.1.0-alpha.1
       '@sns-parse/ext-merge':
-        specifier: ^0.1.0-alpha.1
-        version: 0.1.0-alpha.1
+        specifier: ^0.1.0-alpha.2
+        version: 0.1.0-alpha.2(debug@4.4.3)
       '@sns-parse/ext-nsfw':
-        specifier: ^0.1.0-alpha.1
-        version: 0.1.0-alpha.1(debug@4.4.3)
+        specifier: ^0.2.0-alpha.2
+        version: 0.2.0-alpha.2(debug@4.4.3)
       '@sns-parse/ext-translate':
-        specifier: ^0.1.0-alpha.1
+        specifier: ^0.1.0-alpha.2
         version: 0.1.0-alpha.1(debug@4.4.3)
     devDependencies:
       '@types/node':
@@ -226,6 +226,40 @@ importers:
         version: 5.9.3
 
 packages:
+
+  '@char46/tlsget-rs-darwin-arm64@1.0.9':
+    resolution: {integrity: sha512-PcpZBCjnXfsudTfwu4TrSgAoeCKy7BsuxMp4tqU7VrAgamP8Mm9W1dARAasEcrxtumE6JUFmXLE7KLoX5lnPWg==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@char46/tlsget-rs-darwin-x64@1.0.9':
+    resolution: {integrity: sha512-iCUnuxR+TSReYdwzoYcwfT35L9pixw06sz8qrUkAktu0yqccl4XtLu1bqniy7y8UEYOeRRFGkxMorWx/V1kIJA==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@char46/tlsget-rs-linux-arm64@1.0.9':
+    resolution: {integrity: sha512-7cEc1izc+d+3SMXDCSBoKUokM7C/C8zVVp9JJaLZO77WR4SqUcAmzPs272+MFYUsE6ZikwuSj7NH7AiXeFBYSQ==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@char46/tlsget-rs-linux-musl-x64@1.0.9':
+    resolution: {integrity: sha512-UoXWOuPw9tSqK6RcEXPW9P3nkevKFnrgIvwzNiPQPdnYr7l0zYsLbXKlXor/cSJN6RkgtGAVFbJlftObdC13Ig==}
+    cpu: [x64]
+    os: [linux]
+
+  '@char46/tlsget-rs-linux-x64@1.0.9':
+    resolution: {integrity: sha512-STZbwZ0Lfm5IjgHXK86/WmdsxOInEFmCrR4Z9+L0S465kQyr68v1wBNfc+RbviNLNviTsmx0Y2NDAODOt/GOdg==}
+    cpu: [x64]
+    os: [linux]
+
+  '@char46/tlsget-rs-win32-x64@1.0.9':
+    resolution: {integrity: sha512-CsZbsOKvBM3sbNhxWVBtz6Q49Cq7SHnS/IcKjGJudL1Ya2C++1ycN6lU8Q/vTzTcsq2t7AAXcHbVmi7qkpUKog==}
+    cpu: [x64]
+    os: [win32]
+
+  '@char46/tlsget-rs@1.0.9':
+    resolution: {integrity: sha512-e6x9i3ZOI+ihImuAgkGXuT8NxfqmauKNv9eRgroCtbj1qrq3/CtYxMLBsVcRzz7NjH0jst6uHOCb2J4fl7hl0w==}
+    engines: {node: '>=16.0.0'}
 
   '@derhuerst/http-basic@8.2.4':
     resolution: {integrity: sha512-F9rL9k9Xjf5blCz8HsJRO4diy111cayL2vkY2XE4r4t3n0yPXVYy3KD3nJ1qbrSn9743UWSXH4IwuCa/HWlGFw==}
@@ -243,20 +277,24 @@ packages:
     resolution: {integrity: sha512-eYGhtV99+EWtgjUgGyaLXDnGDJ22gaHkR3EKuZUNDs3lB45qJuKe6C+hLTEY/e/7yD2fkFu+PTcHcmdiR0acBg==}
     engines: {node: '>=16.0.0'}
 
-  '@sns-parse/core@0.2.0-alpha.1':
-    resolution: {integrity: sha512-qbmF82dRncMseRVJici/9LZtwYPOSaLH5ECyd/xPDRYyYhCJiJlz/edcp+BQ6B7nLK1gGIcO3045naPO/FoUkA==}
+  '@sns-parse/core@0.4.0-alpha.3':
+    resolution: {integrity: sha512-ho4xvksXGgVJFreYt4qNoTzwFiYmQl0dnCOSm9raB4WR5u1uxXHO0t67XxgspaqO3+Cx6IQKF+QF0QI0XXKiTA==}
     engines: {node: '>=16.0.0'}
 
   '@sns-parse/ext-gif@0.1.0-alpha.1':
     resolution: {integrity: sha512-DXPpDvfbPFtI+qrq5+LATWlo1hkWT9ohMfu455/fzsg4Me/fnWFvhrjJ/SWNHgn7Uz3PgENsl0fJsGwlIR3FwA==}
     engines: {node: '>=16.0.0'}
 
-  '@sns-parse/ext-merge@0.1.0-alpha.1':
-    resolution: {integrity: sha512-yuC4goEa71bHrNN9JtTzel2yuCyDyZm0neSpcYAhJiOjloZPKbAWwOHuWY4RWYb/IMFjAiV89B7lDNhrCljoEA==}
+  '@sns-parse/ext-gif@0.1.0-alpha.2':
+    resolution: {integrity: sha512-IFArauhy2FpnVXfRkvuAVnFxR8ShivYDW/jO1yfq+6LzY0D8bUwzTvB+jn+jstmvt0YZUmMZTMtws6lze4NIsg==}
     engines: {node: '>=16.0.0'}
 
-  '@sns-parse/ext-nsfw@0.1.0-alpha.1':
-    resolution: {integrity: sha512-6O69hFNPK8PN2G7tdwN05wDYy1NQHsG7+lzjJYF+ERimSjwupo0GNhEYj0VZSEE4EsB58Cedc1E1UusS9OUHlA==}
+  '@sns-parse/ext-merge@0.1.0-alpha.2':
+    resolution: {integrity: sha512-3KkEe1C9p+njR9SeDVOCGkiNphX2Xb1cdaj/RVWkr3Jjv+htd6f2z6vHUWMl+LVaBLCI9OiklPFgmuDr2k1RfQ==}
+    engines: {node: '>=16.0.0'}
+
+  '@sns-parse/ext-nsfw@0.2.0-alpha.2':
+    resolution: {integrity: sha512-bUKQ0crQe2kmUwOri+jVhyjysL0fqU0BMS+FqNjZRDcldKzV1wju9r5gcZ7zcUHthr4S0kIDJmiJeA78KXpLyg==}
     engines: {node: '>=16.0.0'}
 
   '@sns-parse/ext-translate@0.1.0-alpha.1':
@@ -568,6 +606,34 @@ packages:
 
 snapshots:
 
+  '@char46/tlsget-rs-darwin-arm64@1.0.9':
+    optional: true
+
+  '@char46/tlsget-rs-darwin-x64@1.0.9':
+    optional: true
+
+  '@char46/tlsget-rs-linux-arm64@1.0.9':
+    optional: true
+
+  '@char46/tlsget-rs-linux-musl-x64@1.0.9':
+    optional: true
+
+  '@char46/tlsget-rs-linux-x64@1.0.9':
+    optional: true
+
+  '@char46/tlsget-rs-win32-x64@1.0.9':
+    optional: true
+
+  '@char46/tlsget-rs@1.0.9':
+    optionalDependencies:
+      '@char46/tlsget-rs-darwin-arm64': 1.0.9
+      '@char46/tlsget-rs-darwin-x64': 1.0.9
+      '@char46/tlsget-rs-linux-arm64': 1.0.9
+      '@char46/tlsget-rs-linux-musl-x64': 1.0.9
+      '@char46/tlsget-rs-linux-x64': 1.0.9
+      '@char46/tlsget-rs-win32-x64': 1.0.9
+    optional: true
+
   '@derhuerst/http-basic@8.2.4':
     dependencies:
       caseless: 0.12.0
@@ -590,7 +656,16 @@ snapshots:
 
   '@sns-parse/core@0.1.0': {}
 
-  '@sns-parse/core@0.2.0-alpha.1': {}
+  '@sns-parse/core@0.4.0-alpha.3(debug@4.4.3)':
+    dependencies:
+      axios: 1.20.0(debug@4.4.3)
+      https-proxy-agent: 5.0.1
+    optionalDependencies:
+      '@char46/tlsget-rs': 1.0.9
+      ffmpeg-static: 5.3.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
 
   '@sns-parse/ext-gif@0.1.0-alpha.1':
     dependencies:
@@ -600,18 +675,28 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@sns-parse/ext-merge@0.1.0-alpha.1':
+  '@sns-parse/ext-gif@0.1.0-alpha.2(debug@4.4.3)':
     dependencies:
-      '@sns-parse/core': 0.1.0
-      '@sns-parse/ext-gif': 0.1.0-alpha.1
+      '@sns-parse/core': 0.4.0-alpha.3(debug@4.4.3)
     optionalDependencies:
       ffmpeg-static: 5.3.0
     transitivePeerDependencies:
+      - debug
       - supports-color
 
-  '@sns-parse/ext-nsfw@0.1.0-alpha.1(debug@4.4.3)':
+  '@sns-parse/ext-merge@0.1.0-alpha.2(debug@4.4.3)':
     dependencies:
-      '@sns-parse/core': 0.1.0
+      '@sns-parse/core': 0.4.0-alpha.3(debug@4.4.3)
+      '@sns-parse/ext-gif': 0.1.0-alpha.2(debug@4.4.3)
+    optionalDependencies:
+      ffmpeg-static: 5.3.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+
+  '@sns-parse/ext-nsfw@0.2.0-alpha.2(debug@4.4.3)':
+    dependencies:
+      '@sns-parse/core': 0.4.0-alpha.3(debug@4.4.3)
       axios: 1.20.0(debug@4.4.3)
     transitivePeerDependencies:
       - debug

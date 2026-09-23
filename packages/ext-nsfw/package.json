@@ -1,6 +1,6 @@
 {
   "name": "@sns-parse/ext-nsfw",
-  "version": "0.2.0-alpha.1+upstream.1.6.7",
+  "version": "0.2.0-alpha.2+upstream.1.6.7",
   "description": "sns-parse 扩展：nsfw",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -14,7 +14,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@sns-parse/core": "^0.2.0-alpha.1",
+    "@sns-parse/core": "^0.4.0-alpha.1",
     "axios": "^1.16.1"
   },
   "devDependencies": {

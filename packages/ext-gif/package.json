@@ -1,6 +1,6 @@
 {
   "name": "@sns-parse/ext-gif",
-  "version": "0.1.0-alpha.1+upstream.1.6.7",
+  "version": "0.1.0-alpha.2+upstream.1.6.7",
   "description": "sns-parse 扩展：gif",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -14,7 +14,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@sns-parse/core": "^0.1.0"
+    "@sns-parse/core": "^0.4.0-alpha.1"
   },
   "optionalDependencies": {
     "ffmpeg-static": "^5.2.0"
