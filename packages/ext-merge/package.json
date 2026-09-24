@@ -1,6 +1,6 @@
 {
   "name": "@sns-parse/ext-merge",
-  "version": "0.1.0-alpha.2+upstream.1.6.7",
+  "version": "0.1.0-alpha.3+upstream.1.6.7",
   "description": "sns-parse 扩展：merge",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

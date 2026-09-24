@@ -123,7 +123,7 @@ importers:
     dependencies:
       '@sns-parse/core':
         specifier: ^0.4.0-alpha.1
-        version: 0.4.0-alpha.3(debug@4.4.3)
+        version: 0.4.0-alpha.9(debug@4.4.3)
     devDependencies:
       '@types/node':
         specifier: ^20.11.0
@@ -143,7 +143,7 @@ importers:
     dependencies:
       '@sns-parse/core':
         specifier: ^0.4.0-alpha.1
-        version: 0.4.0-alpha.3(debug@4.4.3)
+        version: 0.4.0-alpha.9(debug@4.4.3)
       '@sns-parse/ext-gif':
         specifier: ^0.1.0-alpha.2
         version: 0.1.0-alpha.2(debug@4.4.3)
@@ -166,7 +166,7 @@ importers:
     dependencies:
       '@sns-parse/core':
         specifier: ^0.4.0-alpha.1
-        version: 0.4.0-alpha.3(debug@4.4.3)
+        version: 0.4.0-alpha.9(debug@4.4.3)
       axios:
         specifier: ^1.16.1
         version: 1.20.0(debug@4.4.3)
@@ -185,7 +185,7 @@ importers:
     dependencies:
       '@sns-parse/core':
         specifier: ^0.4.0-alpha.1
-        version: 0.4.0-alpha.3(debug@4.4.3)
+        version: 0.4.0-alpha.9(debug@4.4.3)
       axios:
         specifier: ^1.16.1
         version: 1.20.0(debug@4.4.3)
@@ -204,7 +204,7 @@ importers:
     dependencies:
       '@sns-parse/ext-gif':
         specifier: ^0.1.0-alpha.2
-        version: 0.1.0-alpha.1
+        version: 0.1.0-alpha.2(debug@4.4.3)
       '@sns-parse/ext-merge':
         specifier: ^0.1.0-alpha.2
         version: 0.1.0-alpha.2(debug@4.4.3)
@@ -213,7 +213,7 @@ importers:
         version: 0.2.0-alpha.2(debug@4.4.3)
       '@sns-parse/ext-translate':
         specifier: ^0.1.0-alpha.2
-        version: 0.1.0-alpha.1(debug@4.4.3)
+        version: 0.1.0-alpha.2(debug@4.4.3)
     devDependencies:
       '@types/node':
         specifier: ^20.11.0
@@ -273,16 +273,8 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@sns-parse/core@0.1.0':
-    resolution: {integrity: sha512-eYGhtV99+EWtgjUgGyaLXDnGDJ22gaHkR3EKuZUNDs3lB45qJuKe6C+hLTEY/e/7yD2fkFu+PTcHcmdiR0acBg==}
-    engines: {node: '>=16.0.0'}
-
-  '@sns-parse/core@0.4.0-alpha.3':
-    resolution: {integrity: sha512-ho4xvksXGgVJFreYt4qNoTzwFiYmQl0dnCOSm9raB4WR5u1uxXHO0t67XxgspaqO3+Cx6IQKF+QF0QI0XXKiTA==}
-    engines: {node: '>=16.0.0'}
-
-  '@sns-parse/ext-gif@0.1.0-alpha.1':
-    resolution: {integrity: sha512-DXPpDvfbPFtI+qrq5+LATWlo1hkWT9ohMfu455/fzsg4Me/fnWFvhrjJ/SWNHgn7Uz3PgENsl0fJsGwlIR3FwA==}
+  '@sns-parse/core@0.4.0-alpha.9':
+    resolution: {integrity: sha512-YVCi6x+EM2WCR02Qp2/uV+K/GMKMLV9mxL+71HmG32XIbPYwbhMR13uphYxYxgmbZro7Flg7OS61keP4HqCqfw==}
     engines: {node: '>=16.0.0'}
 
   '@sns-parse/ext-gif@0.1.0-alpha.2':
@@ -297,8 +289,8 @@ packages:
     resolution: {integrity: sha512-bUKQ0crQe2kmUwOri+jVhyjysL0fqU0BMS+FqNjZRDcldKzV1wju9r5gcZ7zcUHthr4S0kIDJmiJeA78KXpLyg==}
     engines: {node: '>=16.0.0'}
 
-  '@sns-parse/ext-translate@0.1.0-alpha.1':
-    resolution: {integrity: sha512-NBIqIdsaw50J8vvyVrqCT8JPU5ppqqhIy8FxYeCW26AdfJBhEPIijCv8HeNnRpay4sLTsm/kO/RiHEWV7nFn6Q==}
+  '@sns-parse/ext-translate@0.1.0-alpha.2':
+    resolution: {integrity: sha512-h3B4YcRFhwPF8QvqMh3IGdWvhLbTK9csnRl/tn0amQqXUVu4Me+wPHQb0Hba3rSy87FaeSYnNx6D4u24/93uEg==}
     engines: {node: '>=16.0.0'}
 
   '@types/node@10.17.60':
@@ -654,9 +646,7 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@sns-parse/core@0.1.0': {}
-
-  '@sns-parse/core@0.4.0-alpha.3(debug@4.4.3)':
+  '@sns-parse/core@0.4.0-alpha.9(debug@4.4.3)':
     dependencies:
       axios: 1.20.0(debug@4.4.3)
       https-proxy-agent: 5.0.1
@@ -667,17 +657,9 @@ snapshots:
       - debug
       - supports-color
 
-  '@sns-parse/ext-gif@0.1.0-alpha.1':
-    dependencies:
-      '@sns-parse/core': 0.1.0
-    optionalDependencies:
-      ffmpeg-static: 5.3.0
-    transitivePeerDependencies:
-      - supports-color
-
   '@sns-parse/ext-gif@0.1.0-alpha.2(debug@4.4.3)':
     dependencies:
-      '@sns-parse/core': 0.4.0-alpha.3(debug@4.4.3)
+      '@sns-parse/core': 0.4.0-alpha.9(debug@4.4.3)
     optionalDependencies:
       ffmpeg-static: 5.3.0
     transitivePeerDependencies:
@@ -686,7 +668,7 @@ snapshots:
 
   '@sns-parse/ext-merge@0.1.0-alpha.2(debug@4.4.3)':
     dependencies:
-      '@sns-parse/core': 0.4.0-alpha.3(debug@4.4.3)
+      '@sns-parse/core': 0.4.0-alpha.9(debug@4.4.3)
       '@sns-parse/ext-gif': 0.1.0-alpha.2(debug@4.4.3)
     optionalDependencies:
       ffmpeg-static: 5.3.0
@@ -696,15 +678,15 @@ snapshots:
 
   '@sns-parse/ext-nsfw@0.2.0-alpha.2(debug@4.4.3)':
     dependencies:
-      '@sns-parse/core': 0.4.0-alpha.3(debug@4.4.3)
+      '@sns-parse/core': 0.4.0-alpha.9(debug@4.4.3)
       axios: 1.20.0(debug@4.4.3)
     transitivePeerDependencies:
       - debug
       - supports-color
 
-  '@sns-parse/ext-translate@0.1.0-alpha.1(debug@4.4.3)':
+  '@sns-parse/ext-translate@0.1.0-alpha.2(debug@4.4.3)':
     dependencies:
-      '@sns-parse/core': 0.1.0
+      '@sns-parse/core': 0.4.0-alpha.9(debug@4.4.3)
       axios: 1.20.0(debug@4.4.3)
     transitivePeerDependencies:
       - debug
