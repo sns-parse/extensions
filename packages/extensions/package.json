@@ -1,6 +1,6 @@
 {
   "name": "@sns-parse/extensions",
-  "version": "0.1.0-alpha.2+upstream.1.6.7",
+  "version": "0.2.0-alpha.1+upstream.1.6.7",
   "description": "sns-parse 全部扩展的纯依赖聚合包（自动安装 ext-nsfw / ext-merge / ext-translate / ext-gif；不提供实现）",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -14,10 +14,10 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@sns-parse/ext-gif": "^0.1.0-alpha.2",
-    "@sns-parse/ext-merge": "^0.1.0-alpha.2",
-    "@sns-parse/ext-nsfw": "^0.2.0-alpha.2",
-    "@sns-parse/ext-translate": "^0.1.0-alpha.2"
+    "@sns-parse/ext-gif": "^0.2.0-alpha.1",
+    "@sns-parse/ext-merge": "^0.2.0-alpha.1",
+    "@sns-parse/ext-nsfw": "^0.2.0-alpha.3",
+    "@sns-parse/ext-translate": "^0.2.0-alpha.1"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",

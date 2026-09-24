@@ -1,15 +1,14 @@
 /**
- * @sns-parse/ext-merge：同源切图内容识别合并。
- * 实现来自 @sns-parse/core（utils/merge + utils/image-size）——本包是碎片化
- * 安装单元与扩展装配入口，不再持有实现副本（修复合并逻辑只需更新 core）。
+ * @sns-parse/ext-merge：同源切图内容识别合并（合并实现归属本包；core 只调度）。
+ * 灰度探测 probeImageSize 等共享工具来自 @sns-parse/core；ffmpeg 解析来自 ext-gif。
  */
-import { mergeImages } from '@sns-parse/core'
+import { mergeImages } from './merge'
 
 export {
-  mergeImages, candidateLayouts, verifyLayout, detectMergeLayout,
+  mergeImages, candidateLayouts, verifyLayout, detectMergeLayout, pickMergeLayout,
   xstackLayout, buildMergeFilter,
-} from '@sns-parse/core'
-export type { MergeLayout } from '@sns-parse/core'
+} from './merge'
+export type { MergeLayout, SeamVerdict } from './merge'
 export { probeImageSize } from '@sns-parse/core'
 export type { ImageSize } from '@sns-parse/core'
 
