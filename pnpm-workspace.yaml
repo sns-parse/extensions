@@ -3,3 +3,4 @@ packages:
 allowBuilds:
   ffmpeg-static: false
 minimumReleaseAge: 0
+linkWorkspacePackages: true

@@ -122,8 +122,8 @@ importers:
   packages/ext-gif:
     dependencies:
       '@sns-parse/core':
-        specifier: ^0.4.0-alpha.1
-        version: 0.4.0-alpha.9(debug@4.4.3)
+        specifier: ^0.6.0-alpha.1
+        version: 0.6.0-alpha.1(debug@4.4.3)
     devDependencies:
       '@types/node':
         specifier: ^20.11.0
@@ -142,11 +142,11 @@ importers:
   packages/ext-merge:
     dependencies:
       '@sns-parse/core':
-        specifier: ^0.4.0-alpha.1
-        version: 0.4.0-alpha.9(debug@4.4.3)
+        specifier: ^0.6.0-alpha.1
+        version: 0.6.0-alpha.1(debug@4.4.3)
       '@sns-parse/ext-gif':
-        specifier: ^0.1.0-alpha.2
-        version: 0.1.0-alpha.2(debug@4.4.3)
+        specifier: ^0.3.0-alpha.1
+        version: link:../ext-gif
     devDependencies:
       '@types/node':
         specifier: ^20.11.0
@@ -165,8 +165,8 @@ importers:
   packages/ext-nsfw:
     dependencies:
       '@sns-parse/core':
-        specifier: ^0.4.0-alpha.1
-        version: 0.4.0-alpha.9(debug@4.4.3)
+        specifier: ^0.6.0-alpha.1
+        version: 0.6.0-alpha.1(debug@4.4.3)
       axios:
         specifier: ^1.16.1
         version: 1.20.0(debug@4.4.3)
@@ -184,8 +184,8 @@ importers:
   packages/ext-translate:
     dependencies:
       '@sns-parse/core':
-        specifier: ^0.4.0-alpha.1
-        version: 0.4.0-alpha.9(debug@4.4.3)
+        specifier: ^0.6.0-alpha.1
+        version: 0.6.0-alpha.1(debug@4.4.3)
       axios:
         specifier: ^1.16.1
         version: 1.20.0(debug@4.4.3)
@@ -203,17 +203,17 @@ importers:
   packages/extensions:
     dependencies:
       '@sns-parse/ext-gif':
-        specifier: ^0.1.0-alpha.2
-        version: 0.1.0-alpha.2(debug@4.4.3)
+        specifier: ^0.3.0-alpha.1
+        version: link:../ext-gif
       '@sns-parse/ext-merge':
-        specifier: ^0.1.0-alpha.2
-        version: 0.1.0-alpha.2(debug@4.4.3)
+        specifier: ^0.3.0-alpha.1
+        version: link:../ext-merge
       '@sns-parse/ext-nsfw':
-        specifier: ^0.2.0-alpha.2
-        version: 0.2.0-alpha.2(debug@4.4.3)
+        specifier: ^0.3.0-alpha.1
+        version: link:../ext-nsfw
       '@sns-parse/ext-translate':
-        specifier: ^0.1.0-alpha.2
-        version: 0.1.0-alpha.2(debug@4.4.3)
+        specifier: ^0.3.0-alpha.1
+        version: link:../ext-translate
     devDependencies:
       '@types/node':
         specifier: ^20.11.0
@@ -273,24 +273,8 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@sns-parse/core@0.4.0-alpha.9':
-    resolution: {integrity: sha512-YVCi6x+EM2WCR02Qp2/uV+K/GMKMLV9mxL+71HmG32XIbPYwbhMR13uphYxYxgmbZro7Flg7OS61keP4HqCqfw==}
-    engines: {node: '>=16.0.0'}
-
-  '@sns-parse/ext-gif@0.1.0-alpha.2':
-    resolution: {integrity: sha512-IFArauhy2FpnVXfRkvuAVnFxR8ShivYDW/jO1yfq+6LzY0D8bUwzTvB+jn+jstmvt0YZUmMZTMtws6lze4NIsg==}
-    engines: {node: '>=16.0.0'}
-
-  '@sns-parse/ext-merge@0.1.0-alpha.2':
-    resolution: {integrity: sha512-3KkEe1C9p+njR9SeDVOCGkiNphX2Xb1cdaj/RVWkr3Jjv+htd6f2z6vHUWMl+LVaBLCI9OiklPFgmuDr2k1RfQ==}
-    engines: {node: '>=16.0.0'}
-
-  '@sns-parse/ext-nsfw@0.2.0-alpha.2':
-    resolution: {integrity: sha512-bUKQ0crQe2kmUwOri+jVhyjysL0fqU0BMS+FqNjZRDcldKzV1wju9r5gcZ7zcUHthr4S0kIDJmiJeA78KXpLyg==}
-    engines: {node: '>=16.0.0'}
-
-  '@sns-parse/ext-translate@0.1.0-alpha.2':
-    resolution: {integrity: sha512-h3B4YcRFhwPF8QvqMh3IGdWvhLbTK9csnRl/tn0amQqXUVu4Me+wPHQb0Hba3rSy87FaeSYnNx6D4u24/93uEg==}
+  '@sns-parse/core@0.6.0-alpha.1':
+    resolution: {integrity: sha512-RfzkU0wN+I8ABPC6/2FMJdpEcLBFI1PMxmxnx42yk1kR/TsoTGHyOhpFbLEe9Z6RDBHt5CUHjXNPa6ridpsiPw==}
     engines: {node: '>=16.0.0'}
 
   '@types/node@10.17.60':
@@ -646,48 +630,13 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@sns-parse/core@0.4.0-alpha.9(debug@4.4.3)':
+  '@sns-parse/core@0.6.0-alpha.1(debug@4.4.3)':
     dependencies:
       axios: 1.20.0(debug@4.4.3)
       https-proxy-agent: 5.0.1
     optionalDependencies:
       '@char46/tlsget-rs': 1.0.9
       ffmpeg-static: 5.3.0
-    transitivePeerDependencies:
-      - debug
-      - supports-color
-
-  '@sns-parse/ext-gif@0.1.0-alpha.2(debug@4.4.3)':
-    dependencies:
-      '@sns-parse/core': 0.4.0-alpha.9(debug@4.4.3)
-    optionalDependencies:
-      ffmpeg-static: 5.3.0
-    transitivePeerDependencies:
-      - debug
-      - supports-color
-
-  '@sns-parse/ext-merge@0.1.0-alpha.2(debug@4.4.3)':
-    dependencies:
-      '@sns-parse/core': 0.4.0-alpha.9(debug@4.4.3)
-      '@sns-parse/ext-gif': 0.1.0-alpha.2(debug@4.4.3)
-    optionalDependencies:
-      ffmpeg-static: 5.3.0
-    transitivePeerDependencies:
-      - debug
-      - supports-color
-
-  '@sns-parse/ext-nsfw@0.2.0-alpha.2(debug@4.4.3)':
-    dependencies:
-      '@sns-parse/core': 0.4.0-alpha.9(debug@4.4.3)
-      axios: 1.20.0(debug@4.4.3)
-    transitivePeerDependencies:
-      - debug
-      - supports-color
-
-  '@sns-parse/ext-translate@0.1.0-alpha.2(debug@4.4.3)':
-    dependencies:
-      '@sns-parse/core': 0.4.0-alpha.9(debug@4.4.3)
-      axios: 1.20.0(debug@4.4.3)
     transitivePeerDependencies:
       - debug
       - supports-color

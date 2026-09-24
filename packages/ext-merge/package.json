@@ -1,6 +1,6 @@
 {
   "name": "@sns-parse/ext-merge",
-  "version": "0.2.0-alpha.1+upstream.1.6.7",
+  "version": "0.3.0-alpha.1+upstream.1.6.7",
   "description": "sns-parse 扩展：merge",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -14,8 +14,8 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@sns-parse/core": "^0.5.0-alpha.1",
-    "@sns-parse/ext-gif": "^0.2.0-alpha.1"
+    "@sns-parse/core": "^0.6.0-alpha.1",
+    "@sns-parse/ext-gif": "^0.3.0-alpha.1"
   },
   "optionalDependencies": {
     "ffmpeg-static": "^5.2.0"
