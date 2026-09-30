@@ -146,7 +146,7 @@ importers:
         version: 0.6.0-alpha.1(debug@4.4.3)
       '@sns-parse/ext-gif':
         specifier: ^0.3.0-alpha.1
-        version: link:../ext-gif
+        version: 0.3.0-alpha.1(debug@4.4.3)
     devDependencies:
       '@types/node':
         specifier: ^20.11.0
@@ -204,16 +204,16 @@ importers:
     dependencies:
       '@sns-parse/ext-gif':
         specifier: ^0.3.0-alpha.1
-        version: link:../ext-gif
+        version: 0.3.0-alpha.1(debug@4.4.3)
       '@sns-parse/ext-merge':
-        specifier: ^0.3.0-alpha.1
+        specifier: ^0.3.0-alpha.2
         version: link:../ext-merge
       '@sns-parse/ext-nsfw':
         specifier: ^0.3.0-alpha.1
-        version: link:../ext-nsfw
+        version: 0.3.0-alpha.1(debug@4.4.3)
       '@sns-parse/ext-translate':
         specifier: ^0.3.0-alpha.1
-        version: link:../ext-translate
+        version: 0.3.0-alpha.1(debug@4.4.3)
     devDependencies:
       '@types/node':
         specifier: ^20.11.0
@@ -275,6 +275,18 @@ packages:
 
   '@sns-parse/core@0.6.0-alpha.1':
     resolution: {integrity: sha512-RfzkU0wN+I8ABPC6/2FMJdpEcLBFI1PMxmxnx42yk1kR/TsoTGHyOhpFbLEe9Z6RDBHt5CUHjXNPa6ridpsiPw==}
+    engines: {node: '>=16.0.0'}
+
+  '@sns-parse/ext-gif@0.3.0-alpha.1':
+    resolution: {integrity: sha512-piZLetFVT6JBm2fiaA2eQuazwbs7zCNvaWvBOHHaDGal1hHfE0ftuAjbrwk3QvPvmCFHcKW6Fu/8t2FUBx8Kyw==}
+    engines: {node: '>=16.0.0'}
+
+  '@sns-parse/ext-nsfw@0.3.0-alpha.1':
+    resolution: {integrity: sha512-HFtq3eZNdwrT8XEHllv+tjyFlKGx2Hc6Bm3vWJH6ZR1eGp5p3X9fZC1X4OWdP7U/A4xMEsR/re1+cUrDg+uC1w==}
+    engines: {node: '>=16.0.0'}
+
+  '@sns-parse/ext-translate@0.3.0-alpha.1':
+    resolution: {integrity: sha512-SOlhmC/dh/zyCgevpBdpBS9CdNPpSlNK06stO1mkfnkJlXk9uby57mZ50WgtiaH+a0A54wrMeAuiKVAqGJOA4A==}
     engines: {node: '>=16.0.0'}
 
   '@types/node@10.17.60':
@@ -637,6 +649,31 @@ snapshots:
     optionalDependencies:
       '@char46/tlsget-rs': 1.0.9
       ffmpeg-static: 5.3.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+
+  '@sns-parse/ext-gif@0.3.0-alpha.1(debug@4.4.3)':
+    dependencies:
+      '@sns-parse/core': 0.6.0-alpha.1(debug@4.4.3)
+    optionalDependencies:
+      ffmpeg-static: 5.3.0
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+
+  '@sns-parse/ext-nsfw@0.3.0-alpha.1(debug@4.4.3)':
+    dependencies:
+      '@sns-parse/core': 0.6.0-alpha.1(debug@4.4.3)
+      axios: 1.20.0(debug@4.4.3)
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+
+  '@sns-parse/ext-translate@0.3.0-alpha.1(debug@4.4.3)':
+    dependencies:
+      '@sns-parse/core': 0.6.0-alpha.1(debug@4.4.3)
+      axios: 1.20.0(debug@4.4.3)
     transitivePeerDependencies:
       - debug
       - supports-color

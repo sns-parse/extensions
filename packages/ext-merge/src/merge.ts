@@ -253,9 +253,185 @@ export function detectMergeLayout(sizes: ImageSize[], grays: Buffer[]): MergeLay
   return pickMergeLayout(sizes, grays)?.layout ?? null
 }
 
+/* ---------- 顺序重建（乱序输入） + 子集分组（部分可拼接） ---------- */
+
 /** 布局名（日志用） */
 export function layoutName(layout: MergeLayout): string {
   return layout.kind === 'grid' ? `网格 ${layout.cols}x${layout.rows}` : layout.kind === 'v' ? '竖堆（水平切分）' : '横拼（垂直切分）'
+}
+
+/** 相邻片接缝代价矩阵（score；不可验证/不连续 = Infinity） */
+function seamCostMatrix(kind: 'v' | 'h', grays: Buffer[]): number[][] {
+  const n = grays.length
+  const m: number[][] = Array.from({ length: n }, () => new Array(n).fill(Infinity))
+  for (let a = 0; a < n; a++) {
+    for (let b = 0; b < n; b++) {
+      if (a === b) continue
+      const v = kind === 'v' ? seamVerdictV(grays[a], grays[b], a, b) : seamVerdictH(grays[a], grays[b], a, b)
+      m[a][b] = v.score
+    }
+  }
+  return m
+}
+
+/**
+ * 条带乱序重建：bitmask DP 找总接缝代价最小的排列（Hamiltonian path）。
+ * 全排列不可连（任一必要缝不可验证/不连续）→ null；返回的是原索引的重排列。
+ */
+export function bestStripOrder(kind: 'v' | 'h', grays: Buffer[]): number[] | null {
+  const n = grays.length
+  if (n < 2 || n > 12) return null
+  const cost = seamCostMatrix(kind, grays)
+  const SIZE = 1 << n
+  const dp = new Float64Array(SIZE * n).fill(Infinity)
+  const par = new Int16Array(SIZE * n).fill(-1)
+  for (let i = 0; i < n; i++) dp[(1 << i) * n + i] = 0
+  for (let mask = 1; mask < SIZE; mask++) {
+    for (let last = 0; last < n; last++) {
+      if (!(mask & (1 << last))) continue
+      const base = mask * n + last
+      if (dp[base] === Infinity) continue
+      for (let nxt = 0; nxt < n; nxt++) {
+        if (mask & (1 << nxt)) continue
+        const nm = mask | (1 << nxt)
+        const cand = dp[base] + cost[last][nxt]
+        if (cand < dp[nm * n + nxt]) { dp[nm * n + nxt] = cand; par[nm * n + nxt] = last }
+      }
+    }
+  }
+  const full = SIZE - 1
+  let bestLast = -1
+  let bestCost = Infinity
+  for (let i = 0; i < n; i++) {
+    const c = dp[full * n + i]
+    if (c < bestCost) { bestCost = c; bestLast = i }
+  }
+  if (bestLast < 0 || bestCost === Infinity) return null
+  const order: number[] = []
+  let mask = full
+  let last = bestLast
+  while (last >= 0 && order.length <= n) {
+    order.push(last)
+    const p = par[mask * n + last]
+    mask ^= (1 << last)
+    last = p
+  }
+  return order.length === n ? order.reverse() : null
+}
+
+/** 宫格顺序：≤4 片试全排列（24），更多保持原序（图库宫格一般保序，全排列代价过高） */
+function gridOrders(n: number): number[][] {
+  const identity = Array.from({ length: n }, (_, i) => i)
+  if (n > 4) return [identity]
+  const out: number[][] = []
+  const permute = (cur: number[], rest: number[]) => {
+    if (!rest.length) { out.push([...cur]); return }
+    for (let i = 0; i < rest.length; i++) permute([...cur, rest[i]], [...rest.slice(0, i), ...rest.slice(i + 1)])
+  }
+  permute([], identity)
+  return out
+}
+
+export interface PickedLayoutOrdered {
+  layout: MergeLayout
+  score: number
+  seams: SeamVerdict[]
+  /** 重排后的原索引顺序（grays[order[i]] 为布局第 i 片） */
+  order: number[]
+}
+
+/**
+ * 候选布局 × 候选顺序（条带 = DP 最优链 + 原序；宫格 ≤4 片全排列）逐一验证，
+ * 取通过者中证据最强的一个。乱序分片由 DP 链重建恢复正确顺序。
+ */
+export function pickMergeLayoutOrdered(sizes: ImageSize[], grays: Buffer[]): PickedLayoutOrdered | null {
+  const candidates = candidateLayouts(sizes.length, sizes)
+  if (!candidates.length) return null
+  const identity = Array.from({ length: grays.length }, (_, i) => i)
+  let best: PickedLayoutOrdered | null = null
+  for (const c of candidates) {
+    let orders: number[][]
+    if (c.kind === 'grid') {
+      orders = gridOrders(grays.length)
+    } else {
+      const chain = bestStripOrder(c.kind, grays)
+      orders = []
+      if (chain) orders.push(chain)
+      if (grays.length > 2) orders.push(identity) // 原序兜底：DP 最小化和可能与单缝裁决偏好不同
+    }
+    const seen = new Set<string>()
+    for (const order of orders) {
+      const key = order.join(',')
+      if (seen.has(key)) continue
+      seen.add(key)
+      const { pass, score, seams } = verifyLayout(c, order.map(i => grays[i]))
+      const detail = seams.map((v) => `[${v.dir === 'V' ? '竖' : '横'}缝 ${v.from}→${v.to}] ${v.reason}`).join('；')
+      debugLog(`同源合并证据·${layoutName(c)}（序 ${key}）：${pass ? '通过' : '拒绝'}，worst=${score === Infinity ? '∞' : score.toFixed(2)} ⟶ ${detail}`)
+      if (pass && (!best || score < best.score)) best = { layout: c, score, seams, order }
+    }
+  }
+  if (best) debugLog(`同源合并裁决：${layoutName(best.layout)}（序 ${best.order.join(',')}，worst 接缝比值 ${best.score.toFixed(2)}）`)
+  else debugLog('同源合并裁决：全部候选未通过内容验证 → 逐张发送')
+  return best
+}
+
+export interface MergePartitionGroup {
+  /** 组内成员（按检测出的正确顺序排列的原索引） */
+  indices: number[]
+  layout: MergeLayout
+}
+export interface MergePartition {
+  groups: MergePartitionGroup[]
+  /** 不属于任何可合并组的原索引（保持原序） */
+  leftover: number[]
+}
+
+/** pool 的 k-组合（保序枚举） */
+function combos(pool: number[], k: number): number[][] {
+  const out: number[][] = []
+  const rec = (start: number, cur: number[]) => {
+    if (cur.length === k) { out.push([...cur]); return }
+    for (let i = start; i < pool.length; i++) rec(i + 1, [...cur, pool[i]])
+  }
+  rec(0, [])
+  return out
+}
+
+/**
+ * 分组识别（部分可拼接）：
+ * 1) 全集先行——整体可合并则单组（最常见路径，一次裁决）；
+ * 2) 否则贪心找最大可合并子集（k 从大到小，尺寸可行的组合才做内容验证），
+ *    出组后对剩余池重复——互不相关的多个母图切片组各自合并；
+ * 3) 任一 ≥2 组都找不到 → null（调用方整体回退逐张）。
+ */
+export function partitionMerge(sizes: ImageSize[], grays: Buffer[]): MergePartition | null {
+  const n = sizes.length
+  const full = pickMergeLayoutOrdered(sizes, grays)
+  if (full) return { groups: [{ indices: full.order, layout: full.layout }], leftover: [] }
+
+  let pool = Array.from({ length: n }, (_, i) => i)
+  const groups: MergePartitionGroup[] = []
+  let skipFull = true // 首轮全集已裁决失败
+  while (pool.length >= 2) {
+    let found: MergePartitionGroup | null = null
+    for (let k = pool.length; k >= 2 && !found; k--) {
+      if (skipFull && k === pool.length && pool.length === n) continue
+      for (const combo of combos(pool, k)) {
+        const subSizes = combo.map(i => sizes[i])
+        if (!candidateLayouts(k, subSizes).length) continue // 尺寸不可能成布局 → 免内容验证
+        const picked = pickMergeLayoutOrdered(subSizes, combo.map(i => grays[i]))
+        if (picked) { found = { indices: picked.order.map(j => combo[j]), layout: picked.layout }; break }
+      }
+    }
+    skipFull = false
+    if (!found) break
+    debugLog(`同源合并分组：${found.indices.join(',')} 可合并（${layoutName(found.layout)}），其余继续判定`)
+    groups.push(found)
+    const used = new Set(found.indices)
+    pool = pool.filter(i => !used.has(i))
+  }
+  if (!groups.length) return null
+  return { groups, leftover: pool }
 }
 
 /**
@@ -352,11 +528,41 @@ function downloadImage(rt: ParserRuntimeLike, url: string): Promise<Buffer> {
     .then((res: any) => Buffer.from(res.data))
 }
 
+export interface MergeGroupResult {
+  buffer: Buffer
+  layout: MergeLayout
+  /** 组内分片 URL（按检测出的正确顺序排列） */
+  urls: string[]
+}
+export interface MergeStageResult {
+  groups: MergeGroupResult[]
+  /** 未参与任何合并组的原图 URL（保持原序，调用方逐张发送） */
+  leftoverUrls: string[]
+}
+
+/** ffmpeg 合并单组（输入文件按组内顺序） */
+async function ffmpegMergeGroup(files: string[], layout: MergeLayout, sizes: ImageSize[]): Promise<Buffer | null> {
+  const filter = buildMergeFilter(files.length, layout, sizes)
+  const args = ['-hide_banner', '-loglevel', 'error', ...files.flatMap((f) => ['-i', f]),
+    '-filter_complex', filter, '-map', '[out]', '-frames:v', '1', '-q:v', '2',
+    '-f', 'image2pipe', '-c:v', 'mjpeg', 'pipe:1']
+  return new Promise<Buffer | null>((resolve) => {
+    const child = spawn(resolveFfmpeg(), args)
+    const chunks: Buffer[] = []
+    child.stdout.on('data', (d: Buffer) => chunks.push(d))
+    child.stderr.on('data', () => {})
+    child.on('error', () => resolve(null))
+    child.on('close', (code) => resolve(code === 0 && chunks.length ? Buffer.concat(chunks) : null))
+  })
+}
+
 /**
- * 下载 → 灰度解码 → 内容识别接缝 → 合并。
- * 不构成母图切片（接缝不连续）或任一环节失败 → null。
+ * 下载 → 灰度解码 → 分组识别（整体/子集，乱序重排）→ 逐组合并。
+ * - 全部图无可合并组（含尺寸/下载/解码失败）→ null（调用方回退逐张）；
+ * - 部分组成立：返回 groups + 未参与组的 leftoverUrls（调用方合并图 + 逐张并发）；
+ * - 单组 ffmpeg 失败不拖垮其他组，该组成员回落 leftoverUrls。
  */
-export async function mergeImages(rt: ParserRuntimeLike, urls: string[]): Promise<{ buffer: Buffer; layout: MergeLayout } | null> {
+export async function mergeImages(rt: ParserRuntimeLike, urls: string[]): Promise<MergeStageResult | null> {
   if (urls.length < 2 || urls.length > MAX_PIECES) return null
   let buffers: Buffer[]
   try {
@@ -379,11 +585,6 @@ export async function mergeImages(rt: ParserRuntimeLike, urls: string[]): Promis
       await writeFile(f, buffers[i])
       files.push(f)
     }
-    // 布局决策（完全由像素内容裁决，不依赖数量规则、链接/文件名与色调风格）：
-    // 网格/竖堆/横拼三种布局候选（按尺寸可能性给出），逐一经接缝内容验证
-    // （亮度趋势 + 去趋势纹理双通道、平坦边缘不可验证即拒绝），
-    // 取通过者中证据最强（接缝比值最小）的一种——真 2x2/3x3 切片网格缝连续、
-    // 长图条带单向连续、无关图全部不过；合并方式由内容区分，均不过则逐张发送
     let grays: Buffer[]
     try {
       grays = await Promise.all(files.map(toGray))
@@ -391,29 +592,27 @@ export async function mergeImages(rt: ParserRuntimeLike, urls: string[]): Promis
       debugLog(`切图合并跳过（灰度解码失败）：${e?.message || e}`)
       return null
     }
-    const picked = pickMergeLayout(sizes as ImageSize[], grays)
-    if (!picked) return null
-    const layout = picked.layout
 
-    const filter = buildMergeFilter(files.length, layout, sizes as ImageSize[])
-    const args = ['-hide_banner', '-loglevel', 'error', ...files.flatMap((f) => ['-i', f]),
-      '-filter_complex', filter, '-map', '[out]', '-frames:v', '1', '-q:v', '2',
-      '-f', 'image2pipe', '-c:v', 'mjpeg', 'pipe:1']
-    const out = await new Promise<Buffer | null>((resolve) => {
-      const child = spawn(resolveFfmpeg(), args)
-      const chunks: Buffer[] = []
-      child.stdout.on('data', (d: Buffer) => chunks.push(d))
-      child.stderr.on('data', () => {})
-      child.on('error', () => resolve(null))
-      child.on('close', (code) => resolve(code === 0 && chunks.length ? Buffer.concat(chunks) : null))
-    })
-    if (!out) {
-      debugLog(`切图合并失败（ffmpeg 退出非 0），回退逐张发送`)
-      return null
+    const partition = partitionMerge(sizes as ImageSize[], grays)
+    if (!partition) return null
+
+    const groups: MergeGroupResult[] = []
+    for (const g of partition.groups) {
+      const orderedFiles = g.indices.map(i => files[i])
+      const orderedSizes = g.indices.map(i => sizes[i]!) as ImageSize[]
+      const out = await ffmpegMergeGroup(orderedFiles, g.layout, orderedSizes)
+      if (!out) {
+        debugLog(`切图合并失败（ffmpeg 退出非 0），该组回退逐张发送`)
+        continue
+      }
+      groups.push({ buffer: out, layout: g.layout, urls: g.indices.map(i => urls[i]) })
     }
-    const desc = layout.kind === 'grid' ? `${layout.cols}x${layout.rows} 宫格` : layout.kind === 'v' ? '垂直堆叠' : '水平拼接'
-    logger.info(`同源切图已合并为一张（内容识别：${urls.length} 张 → ${desc}，${Math.round(out.length / 1024)}KB）`)
-    return { buffer: out, layout }
+    if (!groups.length) return null
+    const consumed = new Set(groups.flatMap(g => g.urls))
+    const leftoverUrls = urls.filter(u => !consumed.has(u))
+    const desc = partition.groups.map(g => `${g.indices.length} 张 → ${layoutName(g.layout)}`).join('；')
+    logger.info(`同源切图已合并（内容识别：${desc}${leftoverUrls.length ? `，${leftoverUrls.length} 张独立图逐张发送` : ''}）`)
+    return { groups, leftoverUrls }
   } finally {
     rm(dir, { recursive: true, force: true }).catch(() => {})
   }
